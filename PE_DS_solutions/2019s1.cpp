@@ -64,7 +64,7 @@ Queue::~Queue()
 	delete t;
 }
 
-void Queue::swap(Node *a, Node *b)
+void Queue::swap(Node *a, Node *b) //This function is not correct, since the question requires swapping two objects, not two values in one object.
 {
     T item0;
 	if(a != NULL && b != NULL)
