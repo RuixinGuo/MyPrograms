@@ -12,7 +12,9 @@ public:
 	void Swap(String &);
 	String & operator=(const String &);
 	String operator+(const String &) const;
+	void print();
 
+private:
 	char *str;
 	int len;
 };
@@ -26,6 +28,7 @@ String::String(const char *a)
 {
 	len = 0;
 	while(a[len] != '\0') len++;
+	len++;
 	str = new char[len];
 	for(int i = 0; i < len; i++) str[i] = a[i];
 }
@@ -61,11 +64,19 @@ String & String::operator=(const String &a)
 String String::operator+(const String &a) const
 {
 	String s;
-	s.len = len + a.len;
+	s.len = len + a.len - 1;
 	s.str = new char[s.len];
-	for(int i = 0; i < len; i++) s.str[i] = str[i];
-	for(int i = len; i < s.len; i++) s.str[i] = a.str[i - len];
+	for(int i = 0; i < len - 1; i++) s.str[i] = str[i];
+	for(int i = 0; i < s.len; i++) s.str[i + len - 1] = a.str[i];
 	return s;
+}
+
+void String::print()
+{
+	for(int i = 0; i < len; i++)
+		cout << str[i];
+	cout<<endl;
+	cout<< "length:" << len << endl;
 }
 
 int main()
@@ -78,8 +89,9 @@ int main()
 	s1.Swap(s2);
 	String s4;
 	s4 = s1 + s3;
-	cout << s4.len << endl;
-	for(int i = 0; i < s4.len; i++) cout << s4.str[i];
-	cout << endl;
+	s4.print();
+	//cout << s4.len << endl;
+	//for(int i = 0; i < s4.len; i++) cout << s4.str[i];
+	//cout << endl;
 	return 0;
 }
